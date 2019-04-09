@@ -1,0 +1,2 @@
+/^((be/s or /s not)|(to /s be)){1}(to /s be)*/
+/hello|world!!|hello!?|perl?!/

@@ -1,0 +1,15 @@
+Expression: /[-+]?\d*(\.\D+)?F\s/
+Matches: "112aBF ", "+8F ", "F "
+Unmatches: "112aBF", "+8F", "F"
+
+
+Expression: /(#?)(1?)(one)\1\2\3/
+Matches: "oneone", "#one#one", "#1one#1one"
+Unmatches: "##one##one", "11one11one", "11#one11#one"
+
+
+
+Expression: /((a*?)\b).*\w\2\1/
+Matches: "a c datca ", "a cat seca ", "acat"
+Unmatches: "", "#", "@"
+

@@ -1,0 +1,236 @@
+Question 1
+
+part1
+i) echo $SHELL
+ii) bash
+iii) exit
+
+part2
+Read the man page of cal.
+(i) Find the date of Easter (Orthodox church) in 2027.
+>ncal -o -y 2027
+The date of the Orthodox Easter in 2027 is 05/02/2027
+
+ii) Display a calendar from July 2016 to June 2018, inclusive.
+> ncal -d 2016/7 -A 23
+
+iii) Display a calendar of the first six months in 2018 that also includes week numbers
+>ncal -m jan -A 5 -w
+
+part3
+Create two plaintext files called file1.txt and file2.txt in your home directory with "hello world" as
+content, and using different ways (i.e.,create file1.txt and file2.txt using different commands).
+>echo "hello world" >file1.txt
+>echo "hello World" | tee file2.txt
+
+ii) Retrieve the page http://stonybrook.edu and save it to a file called index.html in your home directory.
+>wget -O ~/index.html "http://stonybrook.edu"
+
+
+part3
+i) What is the absolute pathname of the files that you created in part 3?
+>/home/cse337/file1.txt
+>/home/cse337/file2.txt
+>/home/index.html
+
+ii) What is its relative pathname if the current directory is the parent directory of the home directory?
+>/home/cse337/file1.txt
+>/home/cse337/file2.txt
+>/home/index.html
+
+
+Question 2
+
+part1
+i) Go to your home directory.
+> cd ~
+
+ii) Create a subdirectory and a file that contains some content.
+> mkdir q2p1 && echo "hello world">q2p1/a.txt
+
+iii) What are the file access permissions of the subdirectory and file you just created respectively?
+> -rw-r--r--
+
+iv) Describe what operations can be done by whom on a directory with permissions rwxrw—x and file a file with permissions
+rwxr–r-x respectively. Be concise.
+> chmod 745 q2p1/a.txt
+for rwx is binary 111 = 7, 100 = 4, 1001 = 5, so setting each bit for each privilege level would give 745
+
+
+
+part2
+i) Go into the subdirectory that you created in the first part. Stay in this directory to complete ii) to iv).
+> cd ~/q2p1
+
+ii) Copy the file you created in part 1 here.
+>cp ~/file1.txt
+
+
+iii) Remove the file you created in part 1.
+> rm file1.txt
+
+iv) Create a subdirectory in the current directory.
+>mkdir hello
+
+
+part3
+i) Go to your home directory.
+> cd ~
+
+ii) Change the permission of the subdirectory that you created in part 1 so that when in your home directory, you can’t list the content of that subdirectory but can display and change the content of the file in that subdirectory.
+> chmod 444 q2p1
+
+iii) While in your home directory, are you able to enter the subdirectory that you created in part 2.iv?
+>ls q2p1/
+ls: cannot access 'q2p1/hello': Permission denied
+hello
+
+[Cannot access, permission denined]
+
+
+
+part4
+i) Create a clone of the subdirectory that you created in part 1, including contents of all its subdirectories,
+sub-subdirectories, if there are any.
+>sudo cp -r q2p1 clone
+
+
+ii) Move the file index.html from your home directory into the clone you created in part 1.
+
+>sudo mv index.html clone
+
+
+
+part5
+i) Remove all contents within the subdirectory that you created in part 1, including all sub or sub-sub
+contents within.
+>sudo rm -r q2p1/*
+
+
+ii) Verify that it is now empty.
+>sudo ls q2p1/ -l
+total 0
+
+iii) Remove this empty directory itself.
+>sudo rmdir q2p1/
+
+
+Question 3
+
+
+part1
+print only the 23rd line of a given file using head and tail commands.
+>head -23 input.txt | tail -1
+
+
+part2
+Create a directory under your home directory, and add this directory to your $PATH variable. Verify it
+by printing the value of $PATH variable, and running an executable placed under this directory from your
+home directory. Briefly explain why adding this new directory to the $PATH variable is useful.
+
+>mkdir ~/q3p2
+>export PATH=$PATH:/home/nafi/q3p2
+>echo $PATH
+/home/nafi/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/nafi/q3p2
+
+Why useful:
+This is useful because it is a shorthand for writing out the entire directory. It allows us to run programs that are in the directory while being anywhere in the terminal.
+
+
+part3
+Write a command to display only the files under a directory(But not directories and others).
+>find clone -maxdepth 1 -type f
+
+
+part4
+Cron is a job scheduling utility provided by Linux/Unix systems, and it allows for periodical execution
+of predefined commands. Cron jobs are defined using crontab files(You can read more about crontab files
+here http://www.adminschoice.com/crontab-quick-reference). Write a crontab line that creates an empty
+file named update.txt under the home directory at 3:43PM of every 3rd, 10th, 17st and 24th days of every
+month.
+
+>43 15 3 10 17 touch ~/update.txt
+
+
+part5
+i) Create an A3tmp directory in your home directory.
+>mkdir A3tmp
+
+
+ii) Read the man page for the find command. Find out all files (only files) within or below the /var/log directory that begin with letter "s", while directing all stderr messages to a file called logerror.txt in the A3tmp directory in your home directory.
+>find /var/log/s* 2> A3tmp/logerror.txt
+
+
+
+
+part6
+i) How many entries that starts with letter "a" and has .gz extension are there in the /usr/share/man/man1
+directory?
+>find /usr/share/man/man1/a*.gz|wc
+62      62    2282
+
+
+ii) Within them, how many are symbolic links? Note that in the output of ls -l, a symbolic
+link has letter l at the start of its line, it also has a “ -> ” sign in its line.
+>
+
+
+part7
+i) How many words, lines and characters are there in /usr/share/dict/words respectively?
+>wc /usr/share/dict/words
+lines :102305, words:102305, characters: 971578 /usr/share/dict/words
+
+
+ii) Based on the result in i), how many words are there on each line of the file?
+> There is one word per line.
+
+
+iii) Save the words between 300-500 and 700-800 (both inclusive) in this file to files named 300-500.txt and 700-800.txt in your ~/A3tmp directory, respectively.
+>head -500 /usr/share/dict/words | tail -300 > ~/a3tmp/300-500.txt
+>head -800 /usr/share/dict/words | tail -700 > ~/a3tmp/700-800.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

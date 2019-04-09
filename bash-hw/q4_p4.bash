@@ -1,0 +1,1 @@
+echo find */ -type d | wc -l
